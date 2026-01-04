@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Japanese Milk Bread</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 28px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+            color: #374151;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .controls button {
+            padding: 6px 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #4f46e5;
+            color: white;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .pdf-controls button {
+            padding: 6px 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #4f46e5;
+            color: white;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            padding: 6px 8px;
+            border-radius: 6px;
+        }
+
+        li:hover {
+            background: #f0f1f5;
+        }
+
+        .quantity-label {
+            min-width: 60px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input.quantity-input {
+            width: 60px;
+            padding: 4px 6px;
+            font-weight: bold;
+        }
+
+        .unit {
+            min-width: 40px;
+            color: #555;
+        }
+
+        .ingredient-name {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Japanese Milk Bread</h1>
+
+    <div class="controls">
+        <button onclick="changeServings(-1)">−</button>
+        <span>Servings: <strong id="servingsCount">4</strong></span>
+        <button onclick="changeServings(1)">+</button>
+    </div>
+    <div class="pdf-controls">
+        <button onclick="generatePDF()">Download PDF</button>
+    </div>
+
+    <h2>Ingredients</h2> 
+    <div class="component-ingredients" data-component="Tangzhong">
+        <h3>Tangzhong</h3>
+        <ul class="ingredients">
+            <li data-base="15" data-unit="g" data-name="flour">
+                <span class="quantity-label"></span>
+                <span class="unit">g</span>
+                <span class="ingredient-name">flour</span>
+            </li>
+            <li data-base="60" data-unit="g" data-name="(soy) milk">
+                <span class="quantity-label"></span>
+                <span class="unit">g</span>
+                <span class="ingredient-name">(soy) milk</span>
+            </li>
+            <li data-base="30" data-unit="g" data-name="water">
+                <span class="quantity-label"></span>
+                <span class="unit">g</span>
+                <span class="ingredient-name">water</span>
+            </li>
+        </ul>
+    </div>
+    <div class="component-ingredients" data-component="Dough">
+        <h3>Dough</h3>
+        <ul class="ingredients">
+            <li data-base="360" data-unit="g" data-name="flour">
+                <span class="quantity-label"></span>
+                <span class="unit">g</span>
+                <span class="ingredient-name">flour</span>
+            </li>
+            <li data-base="50" data-unit="g" data-name="brown sugar">
+                <span class="quantity-label"></span>
+                <span class="unit">g</span>
+                <span class="ingredient-name">brown sugar</span>
+            </li>
+            <li data-base="180" data-unit="g" data-name="(soy) milk">
+                <span class="quantity-label"></span>
+                <span class="unit">g</span>
+                <span class="ingredient-name">(soy) milk</span>
+            </li>
+            <li data-base="69" data-unit="g" data-name="(vegan) butter">
+                <span class="quantity-label"></span>
+                <span class="unit">g</span>
+                <span class="ingredient-name">(vegan) butter</span>
+            </li>
+            <li data-base="1" data-unit="pinch" data-name="salt">
+                <span class="quantity-label"></span>
+                <span class="unit">pinch</span>
+                <span class="ingredient-name">salt</span>
+            </li>
+            <li data-base="7" data-unit="g" data-name="instant yeast">
+                <span class="quantity-label"></span>
+                <span class="unit">g</span>
+                <span class="ingredient-name">instant yeast</span>
+            </li>
+        </ul>
+    </div>
+
+    <h2>Instructions</h2> 
+        <div class="component-instructions" data-component="Tangzhong">
+            <h3>Tangzhong</h3>
+            <ol class="instructions">
+                <li>In a small saucepan, whisk together the flour, milk, and water until smooth.</li>
+                <li>Cook over medium heat, stirring constantly, until the mixture thickens to a pudding-like consistency.</li>
+                <li>Remove from heat and let it cool to room temperature.</li>
+            </ol>
+        </div>
+        <div class="component-instructions" data-component="Dough">
+            <h3>Dough</h3>
+            <ol class="instructions">
+                <li>In a large mixing bowl, combine the flour, brown sugar, salt, and instant yeast.</li>
+                <li>Add the cooled tangzhong, warm milk and melted butter to the dry ingredients. Slightly mix until a a shaggy dough forms. Let it rest for 10 minutes.</li>
+                <li>Knead the dough for about 10 minutes until it becomes smooth and elastic, passing the windowpane test.</li>
+                <li>Place the dough in a greased bowl, cover and let it rise in a warm place until doubled in size.</li>
+                <li>Punch down the dough and divide it into 4 equal portions. Shape each portion into a ball and let them rest for 10 minutes.</li>
+                <li>Roll each dough ball into an oval shape, then fold the sides into the center and roll it up tightly. Place them seam side down into a greased loaf pan.</li>
+                <li>Cover the loaf pan and let the dough rise again until it reaches the rim of the pan.</li>
+                <li>Preheat the oven to 180°C, so it is ready when the loaf is done rising.</li>
+                <li>Bake the bread for 30-35 minutes or until golden brown on top.</li>
+                <li>Remove from the oven and let it cool in the pan for 10 minutes before transferring to a wire rack to cool completely.</li>
+            </ol>
+        </div>
+</div>
+
+
+<script src="vendor/jspdf.umd.min.js"></script>
+
+<script>
+    const { jsPDF } = window.jspdf;
+
+    const baseServings = 4;
+    let currentServings = baseServings;
+    let scaleFactor = 1;
+
+    const servingsCount = document.getElementById("servingsCount"); 
+    const components = document.querySelectorAll(".component-ingredients");
+
+    function format(value) {
+        return Number.isInteger(value) ? value : value.toFixed(1);
+    }
+
+    function updateAll() { 
+        components.forEach(component => {
+            component.querySelectorAll("li").forEach(item => {
+                const base = parseFloat(item.dataset.base);
+                const label = item.querySelector(".quantity-label");
+                if (!label) return;
+                label.textContent = format(base * scaleFactor);
+            });
+        });
+    }
+
+    function changeServings(delta) {
+        currentServings = Math.max(1, currentServings + delta);
+        scaleFactor = currentServings / baseServings;
+        servingsCount.textContent = currentServings;
+        updateAll();
+    }
+
+    function makeEditable(label, item) {
+        label.addEventListener("click", () => {
+            const base = parseFloat(item.dataset.base);
+            const input = document.createElement("input");
+            input.type = "number";
+            input.step = "any";
+            input.value = format(base * scaleFactor);
+            input.className = "quantity-input";
+
+            label.replaceWith(input);
+            input.focus();
+
+            function commit() {
+                const newAmount = parseFloat(input.value);
+                if (!isNaN(newAmount) && base > 0) {
+                    scaleFactor = newAmount / base;
+                    currentServings = Math.round(baseServings * scaleFactor);
+                    servingsCount.textContent = currentServings;
+                    updateAll();
+                }
+
+                const newLabel = document.createElement("span");
+                newLabel.className = "quantity-label";
+                newLabel.textContent = format(base * scaleFactor);
+                input.replaceWith(newLabel);
+                makeEditable(newLabel, item);
+            }
+
+            input.addEventListener("blur", commit);
+            input.addEventListener("keydown", e => e.key === "Enter" && commit());
+        });
+    } 
+    components.forEach(component => {
+        component.querySelectorAll(".quantity-label").forEach(label => {
+            makeEditable(label, label.closest("li"));
+        });
+    });
+
+    updateAll();
+
+    function generatePDF() {
+        const doc = new jsPDF();
+        const margin = 15;
+        const pageHeight = doc.internal.pageSize.height;
+        let y = margin;
+
+        doc.setFontSize(18);
+        doc.text("Japanese Milk Bread", 105, y, { align: "center" });
+        y += 10;
+
+        doc.setFontSize(12);
+        doc.text(`Servings: ${currentServings}`, 20, y);
+        y += 8;
+
+        doc.setFontSize(14);
+        doc.text("Ingredients:", 20, y);
+        y += 8; 
+        components.forEach(component => {
+            const title = component.querySelector("h3").textContent;
+            doc.setFontSize(12);
+            doc.text(title, 20, y);
+            y += 8;
+
+            doc.setFontSize(10);
+            component.querySelectorAll("li").forEach(item => {
+                const quantity = format(parseFloat(item.dataset.base) * scaleFactor);
+                doc.text(
+                    `- ${quantity} ${item.dataset.unit} ${item.dataset.name}`,
+                    25,
+                    y
+                );
+                y += 6;
+            });
+            y += 6;
+        });
+
+
+        doc.setFontSize(14);
+        doc.text("Instructions:", 20, y);
+        y += 8; 
+        const instructions = document.querySelectorAll(".component-instructions");
+        instructions.forEach(component => {
+            const title = component.querySelector("h3").textContent;
+            doc.setFontSize(12);
+            doc.text(title, 20, y);
+            y += 8;
+
+            doc.setFontSize(10);
+            component.querySelectorAll("li").forEach((li, i) => {
+                line = `${i + 1}. ${li.textContent}`
+                const lines = doc.splitTextToSize(line, 180);
+                const lineHeight = doc.getLineHeight() / doc.internal.scaleFactor;
+                const requiredHeight = lines.length * lineHeight;
+
+                
+                if (y + requiredHeight > pageHeight - margin) {
+                    doc.addPage();
+                    y = margin;
+                }
+
+                doc.text(lines, 25, y);
+                y += lines.length * lineHeight;
+                y += 6;
+            });
+        });
+
+
+
+        doc.save("recipe.pdf");
+    }
+</script>
+</body>
+</html>

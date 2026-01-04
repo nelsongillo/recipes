@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Laugenstange</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f6f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 28px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        h3 {
+            margin-bottom: 10px;
+            color: #374151;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .controls button {
+            padding: 6px 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #4f46e5;
+            color: white;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .pdf-controls button {
+            padding: 6px 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #4f46e5;
+            color: white;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            padding: 6px 8px;
+            border-radius: 6px;
+        }
+
+        li:hover {
+            background: #f0f1f5;
+        }
+
+        .quantity-label {
+            min-width: 60px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input.quantity-input {
+            width: 60px;
+            padding: 4px 6px;
+            font-weight: bold;
+        }
+
+        .unit {
+            min-width: 40px;
+            color: #555;
+        }
+
+        .ingredient-name {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Laugenstange</h1>
+
+    <div class="controls">
+        <button onclick="changeServings(-1)">−</button>
+        <span>Servings: <strong id="servingsCount">4</strong></span>
+        <button onclick="changeServings(1)">+</button>
+    </div>
+    <div class="pdf-controls">
+        <button onclick="generatePDF()">Download PDF</button>
+    </div>
+
+    <h2>Ingredients</h2> 
+    <ul class="ingredients">
+        <li data-base="1000" data-unit="g" data-name="flour">
+            <span class="quantity-label"></span>
+            <span class="unit">g</span>
+            <span class="ingredient-name">flour</span>
+         </li>
+        <li data-base="15" data-unit="g" data-name="salt">
+            <span class="quantity-label"></span>
+            <span class="unit">g</span>
+            <span class="ingredient-name">salt</span>
+         </li>
+        <li data-base="260" data-unit="g" data-name="water">
+            <span class="quantity-label"></span>
+            <span class="unit">g</span>
+            <span class="ingredient-name">water</span>
+         </li>
+        <li data-base="260" data-unit="g" data-name="(soy) milk">
+            <span class="quantity-label"></span>
+            <span class="unit">g</span>
+            <span class="ingredient-name">(soy) milk</span>
+         </li>
+        <li data-base="150" data-unit="g" data-name="(vegan) butter">
+            <span class="quantity-label"></span>
+            <span class="unit">g</span>
+            <span class="ingredient-name">(vegan) butter</span>
+         </li>
+        <li data-base="42" data-unit="g" data-name="fresh yeast">
+            <span class="quantity-label"></span>
+            <span class="unit">g</span>
+            <span class="ingredient-name">fresh yeast</span>
+         </li>
+        <li data-base="50" data-unit="g" data-name="baking soda">
+            <span class="quantity-label"></span>
+            <span class="unit">g</span>
+            <span class="ingredient-name">baking soda</span>
+         </li>
+        <li data-base="1" data-unit="as much as needed" data-name="coarse salt">
+            <span class="quantity-label"></span>
+            <span class="unit">as much as needed</span>
+            <span class="ingredient-name">coarse salt</span>
+         </li>
+    </ul>
+
+    <h2>Instructions</h2> 
+    <ul class="instructions">
+        <li>Mix the flour and salt in a large bowl.</li>
+        <li>Warm the water and milk to about 37°C, melt the butter and add to the liquids. Dissolve a bit of sugar and let cool to lukewarm, then dissolve the fresh yeast in the mixture. Let rest for 10-15 minutes.</li>
+        <li>Add the liquid mixture to the dry ingredients and kneed for about 10 minutes until a smooth and elastic dough forms, passing the windowpane test.</li>
+        <li>Place the dough in a greased bowl, cover and let it rise in a warm place until doubled in size.</li>
+        <li>Punch down the dough and divide it into 24 equal portions. Roll each portion into a rectangular shape and then roll it up tightly from the short side to form a stick shape.</li>
+        <li>Bring a large pot of water to a boil and add the baking soda.</li>
+        <li>Preheat the oven to 160°C and line baking sheets with parchment paper.</li>
+        <li>Carefully lower a few dough sticks at a time into the boiling baking soda water. Boil for about 30 seconds on each side, then remove with a slotted spoon and place them on the prepared baking sheets.</li>
+        <li>Cut a few slashes on top of each stick with a sharp knife and sprinkle with coarse salt.</li>
+        <li>Bake for 25-30 minutes or until golden brown.</li>
+    </ul>
+</div>
+
+
+<script src="vendor/jspdf.umd.min.js"></script>
+
+<script>
+    const { jsPDF } = window.jspdf;
+
+    const baseServings = 4;
+    let currentServings = baseServings;
+    let scaleFactor = 1;
+
+    const servingsCount = document.getElementById("servingsCount"); 
+    const flatIngredients = document.querySelectorAll(".ingredients");
+
+    function format(value) {
+        return Number.isInteger(value) ? value : value.toFixed(1);
+    }
+
+    function updateAll() { 
+        flatIngredients.forEach(ingredient => {
+            ingredient.querySelectorAll("li").forEach(item => {
+                const base = parseFloat(item.dataset.base);
+                const label = item.querySelector(".quantity-label");
+                if (!label) return;
+                label.textContent = format(base * scaleFactor);
+            });
+        });
+    }
+
+    function changeServings(delta) {
+        currentServings = Math.max(1, currentServings + delta);
+        scaleFactor = currentServings / baseServings;
+        servingsCount.textContent = currentServings;
+        updateAll();
+    }
+
+    function makeEditable(label, item) {
+        label.addEventListener("click", () => {
+            const base = parseFloat(item.dataset.base);
+            const input = document.createElement("input");
+            input.type = "number";
+            input.step = "any";
+            input.value = format(base * scaleFactor);
+            input.className = "quantity-input";
+
+            label.replaceWith(input);
+            input.focus();
+
+            function commit() {
+                const newAmount = parseFloat(input.value);
+                if (!isNaN(newAmount) && base > 0) {
+                    scaleFactor = newAmount / base;
+                    currentServings = Math.round(baseServings * scaleFactor);
+                    servingsCount.textContent = currentServings;
+                    updateAll();
+                }
+
+                const newLabel = document.createElement("span");
+                newLabel.className = "quantity-label";
+                newLabel.textContent = format(base * scaleFactor);
+                input.replaceWith(newLabel);
+                makeEditable(newLabel, item);
+            }
+
+            input.addEventListener("blur", commit);
+            input.addEventListener("keydown", e => e.key === "Enter" && commit());
+        });
+    } 
+    flatIngredients.forEach(ingredient => {
+        ingredient.querySelectorAll(".quantity-label").forEach(label => {
+            makeEditable(label, label.closest("li"));
+        });
+    });
+
+    updateAll();
+
+    function generatePDF() {
+        const doc = new jsPDF();
+        const margin = 15;
+        const pageHeight = doc.internal.pageSize.height;
+        let y = margin;
+
+        doc.setFontSize(18);
+        doc.text("Laugenstange", 105, y, { align: "center" });
+        y += 10;
+
+        doc.setFontSize(12);
+        doc.text(`Servings: ${currentServings}`, 20, y);
+        y += 8;
+
+        doc.setFontSize(14);
+        doc.text("Ingredients:", 20, y);
+        y += 8; 
+        flatIngredients.forEach(ingredient => {
+            doc.setFontSize(10);
+            ingredient.querySelectorAll("li").forEach(item => {
+                const quantity = format(parseFloat(item.dataset.base) * scaleFactor);
+                doc.text(
+                    `- ${quantity} ${item.dataset.unit} ${item.dataset.name}`,
+                    25,
+                    y
+                );
+                y += 6;
+            });
+        });
+
+
+        doc.setFontSize(14);
+        doc.text("Instructions:", 20, y);
+        y += 8; 
+        const instructions = document.querySelectorAll(".instructions li");
+        instructions.forEach((li, i) => {
+            doc.setFontSize(10);
+            line = `${i + 1}. ${li.textContent}`
+            const lines = doc.splitTextToSize(line, 180);
+            const lineHeight = doc.getLineHeight() / doc.internal.scaleFactor;
+            const requiredHeight = lines.length * lineHeight;
+
+            
+            if (y + requiredHeight > pageHeight - margin) {
+                doc.addPage();
+                y = margin;
+            }
+
+            doc.text(lines, 25, y);
+            y += lines.length * lineHeight;
+            y += 6;
+        });
+
+
+
+        doc.save("recipe.pdf");
+    }
+</script>
+</body>
+</html>
