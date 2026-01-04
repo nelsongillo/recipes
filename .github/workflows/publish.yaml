@@ -36,7 +36,7 @@ jobs:
     # Run the tool to generate HTML
     - name: Generate HTML
       run: |
-        ./cookbookgen/out/cookbookgen --recipes . --output ../public
+        ./cookbookgen/out/cookbookgen --recipes . --output ./public
 
     # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
